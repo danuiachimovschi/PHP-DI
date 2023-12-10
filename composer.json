@@ -1,0 +1,19 @@
+{
+    "name": "danu/php-di",
+    "description": "Dependency Injection PHP",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Danu\\PhpDi\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "danuiachimovschi"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    }
+}
