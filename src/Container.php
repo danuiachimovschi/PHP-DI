@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace Danu\PhpDi;
 
+use Danu\PhpDi\Contracts\ContainerContract;
+use Danu\PhpDi\Exception\ContainerException;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionNamedType;
 
-final class Container
+class Container implements ContainerContract
 {
+    /**
+     * @var array
+     */
+    private array $services = [];
     /**
      * The container's  instance.
      *
@@ -28,12 +35,31 @@ final class Container
     {
 
         if (is_null(static::$instance)) {
-            static::$instance = new static;
+            static::$instance = new static();
         }
 
         return static::$instance;
     }
 
+    /**
+     * @param string $id
+     * @param object $service
+     */
+    public function get(string $id): object
+    {
+        if(!isset($this->services[$id])) throw ContainerException::notFoundContainer($id);
+
+        return $this->make($this->services[$id]);
+    }
+
+    /**
+     * @param string $id
+     * @return bool
+     */
+    public function has(string $id): bool
+    {
+        return isset($this->services[$id]);
+    }
 
     /**
      * @param $class
@@ -42,10 +68,15 @@ final class Container
      */
     public function make($class, array $parameters = []): mixed
     {
-        $classReflection = new ReflectionClass($class);
+        try {
+            $classReflection = new ReflectionClass($class);
+        } catch (ReflectionException $e) {
+            throw ContainerException::classDoesNotExist($class::class);
+        }
+
         $constructorParams = $classReflection->getConstructor()->getParameters();
 
-        $dependencies = $dependencies = $this->resolveParams($constructorParams, $parameters);
+        $dependencies = $this->resolveParams($constructorParams, $parameters);
 
         return $classReflection->newInstance(...$dependencies);
     }
