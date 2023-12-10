@@ -9,7 +9,7 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     container:
-      image: umutphp/php-docker-images-for-ci:latest
+      image: php:8.3-fpm
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,7 +22,6 @@ jobs:
           php -r "unlink('composer-setup.php');"
       - name: Install composer dependencies
         run: |
-          ls -la
           composer install --no-scripts
       - name: Run Testsuite
         run: |
