@@ -16,6 +16,7 @@ class Container implements ContainerContract
      * @var array
      */
     private array $services = [];
+
     /**
      * The container's  instance.
      *
@@ -34,16 +35,16 @@ class Container implements ContainerContract
     public static function instance(): static
     {
 
-        if (is_null(static::$instance)) {
-            static::$instance = new static();
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
 
-        return static::$instance;
+        return self::$instance;
     }
 
     /**
      * @param string $id
-     * @param object $service
+     * @return object
      */
     public function get(string $id): object
     {
@@ -150,6 +151,10 @@ class Container implements ContainerContract
     }
 
     private function __clone(): void
+    {
+    }
+
+    private function __wakeup()
     {
     }
 }
