@@ -20,6 +20,7 @@ jobs:
           php -r "unlink('composer-setup.php');"
       - name: Install composer dependencies
         run: |
+          cd /var/php-di
           composer install --no-scripts
       - name: Run Testsuite
         run: |
