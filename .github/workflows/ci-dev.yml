@@ -11,6 +11,8 @@ jobs:
     container:
       image: umutphp/php-docker-images-for-ci:latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Install Composer
         run: |
           apt-get update
