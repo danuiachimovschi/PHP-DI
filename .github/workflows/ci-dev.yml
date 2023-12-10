@@ -1,0 +1,32 @@
+on:
+  pull_request:
+    branches:
+      - master
+
+name: CI Branch Dev
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    container:
+      image: umutphp/php-docker-images-for-ci:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Composer
+        run: |
+          apt-get update
+          apt-get install -y unzip
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
+      - name: Install composer dependencies
+        run: |
+          ls -la
+          composer install --no-scripts
+      - name: Run Testsuite
+        run: |
+          ./vendor/bin/phpunit tests --color
+      - name: Run PHPstan (Static Analysis Tool)
+        run: |
+          vendor/bin/phpstan analyse
