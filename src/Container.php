@@ -72,7 +72,7 @@ class Container implements ContainerContract
         try {
             $classReflection = new ReflectionClass($class);
         } catch (ReflectionException $e) {
-            throw ContainerException::classDoesNotExist($class::class);
+            throw ContainerException::classDoesNotExist($class);
         }
 
         $constructorParams = $classReflection->getConstructor()->getParameters();

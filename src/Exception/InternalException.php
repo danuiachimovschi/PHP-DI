@@ -10,7 +10,7 @@ class InternalException extends \Exception
      * @param string $message
      * @return static
      */
-    public static function make(string $message): static
+    public static function internalException(string $message): InternalException
     {
         return new self($message);
     }

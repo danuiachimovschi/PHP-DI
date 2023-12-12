@@ -1,1 +1,1 @@
-{"version":1,"defects":{"Tests\\ContainerTest::test":5},"times":{"Tests\\ContainerTest::test":0.001}}
+{"version":1,"defects":{"Tests\\ContainerTest::test":5,"Tests\\ContainerTest::testIfThisClassAssertInstanceOfMakeClass":8,"Tests\\ContainerTest::testIfClassDoesNotExist":8},"times":{"Tests\\ContainerTest::test":0.001,"Tests\\ContainerTest::testIfThisClassAssertInstanceOfMakeClass":0.001,"Tests\\ContainerTest::testIfClassDoesNotExist":0.001}}

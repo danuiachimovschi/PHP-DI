@@ -6,15 +6,15 @@ class ContainerException extends InternalException
 {
     /**
      * @param string $id
-     * @return static
+     * @return self
      */
-    public static function notFoundContainer(string $id): static
+    public static function notFoundContainer(string $id): ContainerException
     {
-        return self::make("No entry was found for **this** identifier: {$id}");
+        return new self("No entry was found for **this** identifier: {$id}");
     }
 
-    public static function classDoesNotExist(string $className): static
+    public static function classDoesNotExist(string $className): ContainerException
     {
-        return self::make("Class does not exist: {$className}");
+        return new self("Class does not exist: {$className}");
     }
 }
